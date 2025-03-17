@@ -1,0 +1,68 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run tests
+      run: |
+        python -m unittest discover tests/unit -v
+        python -m unittest discover tests/integration -v
+        
+  build:
+    needs: test
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Build executable
+      run: |
+        pyinstaller case_file_organizer.spec
+        
+    - name: Create release package
+      run: |
+        mkdir release
+        xcopy /s /y dist\Case File Organizer\* release\
+        copy README.md release\
+        copy LICENSE release\
+        copy docs\user_guide.md release\
+        
+    - name: Create ZIP file
+      run: |
+        powershell Compress-Archive -Path release\* -DestinationPath Case_File_Organizer_v1.0.0.zip -Force
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Case_File_Organizer_v1.0.0
+        path: Case_File_Organizer_v1.0.0.zip 

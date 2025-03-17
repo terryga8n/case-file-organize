@@ -1,0 +1,28 @@
+# External dependencies
+pyinstaller==6.3.0
+pillow==10.2.0
+
+# Built-in libraries (no installation needed)
+# tkinter
+# pathlib
+# json
+# re
+# os
+# shutil
+# logging
+# datetime
+# threading
+# queue
+# io
+
+# No external dependencies required - using only Python standard library
+# tkinter - built-in
+# pathlib - built-in
+# json - built-in
+# re - built-in
+# os - built-in
+# shutil - built-in
+# logging - built-in
+# datetime - built-in
+# threading - built-in
+# queue - built-in 

@@ -1,0 +1,15 @@
+# External dependencies
+pyinstaller==6.3.0
+
+# Built-in libraries (no installation needed)
+# tkinter
+# pathlib
+# json
+# re
+# os
+# shutil
+# logging
+# datetime
+# threading
+# queue
+# io 
