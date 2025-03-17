@@ -1,0 +1,29 @@
+{
+    "patterns": {
+        "test": {
+            "regex": "test(\\d+)",
+            "folder_format": "test_{number}",
+            "description": "Test pattern",
+            "sort_by": [
+                "number"
+            ]
+        },
+        "new": {
+            "regex": "new(\\d+)",
+            "folder_format": "new_{number}",
+            "description": "New pattern",
+            "sort_by": [
+                "number"
+            ]
+        },
+        "test_pattern": {
+            "name": "test_pattern",
+            "description": "Test pattern description",
+            "regex": "test(\\d+)",
+            "folder_format": "test_{0}"
+        }
+    },
+    "default_settings": {
+        "test_setting": true
+    }
+}

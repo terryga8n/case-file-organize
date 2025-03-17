@@ -8,20 +8,14 @@ class TestCaseFileOrganizer(unittest.TestCase):
     def setUp(self):
         self.root = tk.Tk()
         self.app = CaseFileOrganizer()
-        self.base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        self.test_dir = os.path.join(self.base_dir, "test_files")
+        self.test_dir = "test_files"
         os.makedirs(self.test_dir, exist_ok=True)
         
         # Create test files
         self.create_test_files()
         
     def tearDown(self):
-        if os.path.exists(self.test_dir):
-            shutil.rmtree(self.test_dir)
-        # Clean up logs directory
-        logs_dir = os.path.join(self.base_dir, "logs")
-        if os.path.exists(logs_dir):
-            shutil.rmtree(logs_dir)
+        shutil.rmtree(self.test_dir)
         self.app.root.destroy()
         self.root.destroy()
         
@@ -154,11 +148,10 @@ class TestCaseFileOrganizer(unittest.TestCase):
         self.app.processing_thread.join()
         
         # Check log for error message
-        logs_dir = os.path.join(self.base_dir, "logs")
-        log_files = [f for f in os.listdir(logs_dir) if f.startswith('organizer_')]
-        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join(logs_dir, x)))
+        log_files = [f for f in os.listdir('logs') if f.startswith('organizer_')]
+        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join('logs', x)))
         
-        with open(os.path.join(logs_dir, latest_log), 'r') as f:
+        with open(os.path.join('logs', latest_log), 'r') as f:
             content = f.read()
         self.assertIn("Error", content)
         

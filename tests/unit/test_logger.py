@@ -12,33 +12,26 @@ class TestLogger(unittest.TestCase):
         self.logger = Logger(log_level=logging.DEBUG)
         
     def tearDown(self):
-        if os.path.exists(self.test_dir):
-            shutil.rmtree(self.test_dir)
-        # Clean up logs directory
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        if os.path.exists(logs_dir):
-            shutil.rmtree(logs_dir)
+        shutil.rmtree(self.test_dir)
         
     def test_logger_creation(self):
         self.assertIsInstance(self.logger.get_logger(), logging.Logger)
         self.assertEqual(self.logger.get_logger().level, logging.DEBUG)
         
     def test_log_directory_creation(self):
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        self.assertTrue(os.path.exists(logs_dir))
+        self.assertTrue(os.path.exists('logs'))
         
     def test_log_file_creation(self):
         logger = self.logger.get_logger()
         logger.info("Test log message")
         
         # Check if log file was created
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        log_files = [f for f in os.listdir(logs_dir) if f.startswith('organizer_')]
+        log_files = [f for f in os.listdir('logs') if f.startswith('organizer_')]
         self.assertTrue(len(log_files) > 0)
         
         # Check log content
-        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join(logs_dir, x)))
-        with open(os.path.join(logs_dir, latest_log), 'r') as f:
+        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join('logs', x)))
+        with open(os.path.join('logs', latest_log), 'r') as f:
             content = f.read()
         self.assertIn("Test log message", content)
         
@@ -52,11 +45,10 @@ class TestLogger(unittest.TestCase):
         logger.error("Error message")
         
         # Check if all messages were logged
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        log_files = [f for f in os.listdir(logs_dir) if f.startswith('organizer_')]
-        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join(logs_dir, x)))
+        log_files = [f for f in os.listdir('logs') if f.startswith('organizer_')]
+        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join('logs', x)))
         
-        with open(os.path.join(logs_dir, latest_log), 'r') as f:
+        with open(os.path.join('logs', latest_log), 'r') as f:
             content = f.read()
             
         self.assertIn("Debug message", content)
@@ -68,11 +60,10 @@ class TestLogger(unittest.TestCase):
         logger = self.logger.get_logger()
         logger.info("Test message")
         
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        log_files = [f for f in os.listdir(logs_dir) if f.startswith('organizer_')]
-        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join(logs_dir, x)))
+        log_files = [f for f in os.listdir('logs') if f.startswith('organizer_')]
+        latest_log = max(log_files, key=lambda x: os.path.getctime(os.path.join('logs', x)))
         
-        with open(os.path.join(logs_dir, latest_log), 'r') as f:
+        with open(os.path.join('logs', latest_log), 'r') as f:
             content = f.read()
             
         # Check log format
@@ -88,8 +79,7 @@ class TestLogger(unittest.TestCase):
             logger = Logger(log_level=logging.DEBUG)
             logger.get_logger().info(f"Test message {i}")
             
-        logs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "logs")
-        log_files = [f for f in os.listdir(logs_dir) if f.startswith('organizer_')]
+        log_files = [f for f in os.listdir('logs') if f.startswith('organizer_')]
         self.assertEqual(len(log_files), 3)
 
 if __name__ == '__main__':

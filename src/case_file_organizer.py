@@ -23,9 +23,6 @@ class CaseFileOrganizer:
         self.root.title("Case File Organizer")
         self.root.geometry("800x600")
         
-        # Get the base directory
-        self.base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        
         # Initialize managers and utilities
         self.config_manager = ConfigManager()
         self.file_utils = FileUtils()
@@ -228,36 +225,29 @@ class CaseFileOrganizer:
             if not match:
                 raise ValueError("Filename does not match pattern")
                 
-            # Get year if needed
-            year = None
-            if self.sort_by_year.get() or self.create_year_folders.get():
-                year = self.file_utils.get_file_year(file_path)
-                
-            # Create target directory
-            target_dir = os.path.join(directory, pattern['folder'])
-            if self.create_year_folders.get() and year:
-                target_dir = os.path.join(target_dir, year)
-                
+            # Get the number and year from the match
+            number = match.group(1)
+            year = "20" + match.group(2)  # Convert 2-digit year to 4-digit
+            
+            # Create target directory using the pattern's folder format
+            target_dir = pattern['folder_format'].format(
+                year=year,
+                number=number
+            )
+            target_dir = os.path.join(directory, target_dir)
+            
+            # Ensure the target directory exists
             self.file_utils.ensure_directory(target_dir)
             
-            # Fix spaces in filename if enabled
-            if self.fix_spaces.get():
-                new_filename = self.fix_pattern_spaces(filename, pattern)
-            else:
-                new_filename = filename
-                
             # Move file
-            target_path = os.path.join(target_dir, new_filename)
+            target_path = os.path.join(target_dir, filename)
             if self.file_utils.move_file(file_path, target_path):
                 self.log_message(f"Moved {filename} to {target_path}")
             else:
-                raise IOError("Failed to move file")
+                raise ValueError("Failed to move file")
                 
         except Exception as e:
-            # Restore from backup if enabled
-            if self.backup_before_move.get():
-                self.file_utils.restore_backup(backup_path)
-                self.log_message(f"Restored from backup due to error: {str(e)}")
+            self.log_message(f"Error processing {filename}: {str(e)}")
             raise
             
     def fix_pattern_spaces(self, filename, pattern):

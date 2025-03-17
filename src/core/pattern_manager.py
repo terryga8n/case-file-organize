@@ -115,8 +115,8 @@ class PatternManager:
             return False
             
         # Check for required format placeholders
-        if "{number}" not in fmt or "{year}" not in fmt:
-            messagebox.showerror("Error", "Folder format must contain {number} and {year} placeholders!")
+        if "{year}" not in fmt or "{number}" not in fmt:
+            messagebox.showerror("Error", "Folder format must contain {year} and {number} placeholders!")
             return False
             
         return True
