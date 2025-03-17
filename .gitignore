@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# Logs
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+*.spec
+*.manifest
+*.exe
+*.dll
+*.pyd
+*.so
+*.dylib
+
+# Release packages
+*.zip
+*.tar.gz
+*.rar
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project specific
+file_patterns.json
+icon.ico
+file_version_info.txt 
