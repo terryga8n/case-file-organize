@@ -30,7 +30,7 @@ if not exist "venv" (
 :: Check for icon file
 if not exist "icon.ico" (
     echo Creating default icon...
-    copy nul icon.ico
+    python create_icon.py
 )
 
 :: Clean previous builds
@@ -48,7 +48,7 @@ if errorlevel 1 (
 )
 
 :: Verify executable was created
-if not exist "dist\Case File Organizer.exe" (
+if not exist "dist\CaseFileOrganizer.exe" (
     echo Executable was not created.
     pause
     exit /b 1
@@ -57,14 +57,14 @@ if not exist "dist\Case File Organizer.exe" (
 :: Create release package
 echo Creating release package...
 mkdir release 2>nul
-xcopy /s /y dist\Case File Organizer\* release\
+xcopy /s /y "dist\CaseFileOrganizer.exe" "release\"
 copy README.md release\
 copy LICENSE release\
 copy docs\user_guide.md release\
 
 :: Create ZIP file
 echo Creating ZIP file...
-powershell Compress-Archive -Path release\* -DestinationPath Case_File_Organizer_v1.0.0.zip -Force
+powershell Compress-Archive -Path "release\*" -DestinationPath "CaseFileOrganizer_v1.0.0.zip" -Force
 if errorlevel 1 (
     echo Failed to create ZIP file.
     pause
@@ -73,5 +73,5 @@ if errorlevel 1 (
 
 echo Build complete!
 echo The executable is in the dist folder
-echo The release package is in Case_File_Organizer_v1.0.0.zip
+echo The release package is in CaseFileOrganizer_v1.0.0.zip
 pause 

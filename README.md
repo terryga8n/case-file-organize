@@ -1,88 +1,58 @@
 # Case File Organizer
 
-A powerful file organization tool designed to help manage and organize case files efficiently.
+A powerful and flexible file organization tool that helps you manage files based on customizable patterns. Perfect for organizing case files, legal documents, and other structured data files.
 
 ## Features
 
-- Organize files based on customizable patterns
-- Create year-based folder structures
-- Automatic file backup before moving
-- Progress tracking with cancel option
-- Detailed logging of all operations
-- User-friendly graphical interface
-- Pattern management system
-- Space fixing in filenames
+- **Pattern-based Organization**: Create and use custom patterns to organize files
+- **Year-based Sorting**: Organize files by year automatically
+- **Space Fixing**: Automatically fix spaces in filenames
+- **Backup Support**: Create backups before moving files
+- **Progress Tracking**: Monitor file organization progress
+- **Detailed Logging**: Comprehensive logging of all operations
+- **User-friendly Interface**: Simple and intuitive GUI
 
 ## Installation
 
-### Prerequisites
+### For End Users
+1. Download the latest release from the releases page
+2. Extract the ZIP file to your desired location
+3. Run `Case File Organizer.exe`
 
-- Python 3.8 or later
-- pip (Python package installer)
+### For Developers
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/case-file-organizer.git
+   cd case-file-organizer
+   ```
 
-### Quick Installation
-
-1. Download or clone this repository
-2. Run the `install.bat` script
-3. Follow the on-screen instructions
-
-### Manual Installation
-
-If you prefer to install manually:
-
-1. Ensure Python 3.8 or later is installed
-2. Open a terminal in the project directory
-3. (Optional) Create a virtual environment:
+2. Create a virtual environment:
    ```bash
    python -m venv venv
-   venv\Scripts\activate
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-4. Install dependencies:
+
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Usage
-
-### Running the Application
-
-1. If using a virtual environment, activate it:
-   ```bash
-   venv\Scripts\activate
-   ```
-2. Run the application:
+4. Run the application:
    ```bash
    python src/case_file_organizer.py
    ```
 
-### Building the Executable
+## Usage
 
-1. If using a virtual environment, activate it:
-   ```bash
-   venv\Scripts\activate
-   ```
-2. Run the build script:
-   ```bash
-   build.bat
-   ```
-3. The executable will be created in the `dist` folder
+1. Launch the application
+2. Select the directory containing files to organize
+3. Choose a pattern from the dropdown list
+4. Configure options as needed
+5. Click "Organize Files" to start the process
 
-## Configuration
+For detailed usage instructions, see the [User Guide](docs/user_guide.md).
 
-The application uses a JSON configuration file (`file_patterns.json`) to store:
-- File patterns
-- Folder naming rules
-- Default settings
-
-### Default Patterns
-
-- ACC: Accident case files
-- HREPN: Human rights enforcement case files
-- HRER: Human rights enforcement report files
-
-## Development
-
-### Project Structure
+## Project Structure
 
 ```
 Case File Organizer/
@@ -96,54 +66,69 @@ Case File Organizer/
 │   │   ├── logger.py
 │   │   └── file_utils.py
 │   └── case_file_organizer.py
+├── docs/
+│   └── user_guide.md
 ├── tests/
 │   ├── unit/
 │   └── integration/
-├── docs/
-├── build.bat
-├── install.bat
-└── requirements.txt
+├── README.md
+├── LICENSE
+├── requirements.txt
+├── case_file_organizer.spec
+└── build.bat
 ```
 
-### Running Tests
+## Building from Source
 
-Run the test suite using:
-```bash
-run_tests.bat
-```
+1. Ensure you have Python 3.8 or later installed
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the build script:
+   ```bash
+   build.bat
+   ```
 
-## Troubleshooting
+The executable will be created in the `dist` directory, and a release package will be created in the root directory.
 
-Common issues and solutions:
+## Logging
 
-1. **Python not found**
-   - Ensure Python is installed and added to PATH
-   - Check Python version with `python --version`
+Logs are stored in the `logs` directory with timestamps in the filename. The application maintains detailed logs of:
+- File operations
+- Pattern matching
+- Error messages
+- Processing statistics
 
-2. **Installation fails**
-   - Check internet connection
-   - Ensure pip is up to date
-   - Try running as administrator
+## Error Handling
 
-3. **Application won't start**
-   - Verify all dependencies are installed
-   - Check the logs in the `logs` directory
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+The application includes robust error handling for:
+- File permission issues
+- Disk space problems
+- Pattern matching errors
+- Invalid configurations
 
 ## Support
 
-For support, please:
-1. Check the documentation in the `docs` directory
-2. Review the troubleshooting section
-3. Submit an issue on the repository 
+For support:
+1. Check the [User Guide](docs/user_guide.md)
+2. Review the logs in the `logs` directory
+3. Contact support with:
+   - Log file
+   - Pattern configuration
+   - Steps to reproduce the issue
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Version History
+
+### v1.0.0
+- Initial release
+- Basic pattern-based file organization
+- Year-based sorting and organization
+- Space fixing in filenames
+- Backup support
+- Progress tracking
+- Detailed logging 
